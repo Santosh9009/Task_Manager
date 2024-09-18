@@ -1,11 +1,34 @@
-const express = require('express')
-const app = express()
-const port = 8000
+// src/server.ts
+import express, { Application } from 'express';
+import dotenv from 'dotenv';
+import connectDB from './config/db';
+import cors from 'cors';
+import authRoutes from './routes/authRoutes';
+import taskRoutes from './routes/taskRoutes';
 
-app.get('/', (req:any, res:any) => {
-  res.send('Hello World!')
-})
+// Load environment variables
+dotenv.config();
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+// Connect to MongoDB
+connectDB();
+
+const app = express();
+
+// Middleware
+app.use(cors());
+app.use(express.json());
+
+// Routes
+app.use('/api/auth', authRoutes);
+app.use('/api/tasks', taskRoutes);
+
+// 404 Error Handling
+app.use((req, res) => {
+  res.status(404).json({ message: 'Route not found' });
+});
+
+const PORT = process.env.PORT || 8000;
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
