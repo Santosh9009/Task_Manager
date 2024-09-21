@@ -7,6 +7,7 @@ export const store = configureStore({
     tasks: taskReducer,
     auth: authReducer,
   },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
 });
 
 

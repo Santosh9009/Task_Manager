@@ -4,6 +4,7 @@ import { useAuth } from '@/hooks/useAuth'; // Adjust the path as necessary
 import { useToast } from '@/hooks/use-toast';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import Cookies from 'js-cookie';
 
 export default function SignupPage() {
   const { toast } = useToast()
@@ -17,11 +18,20 @@ export default function SignupPage() {
     e.preventDefault();
     try {
       await signup({ email, password, username });
-      toast({
-        title: "success",
-        description: "Signed up in successfully",
-      })
-      router.push('/')
+      const token = Cookies.get('token');
+      if (token) {
+        toast({
+          title: "success",
+          description: "Logged in successfully",
+          variant: "default",
+        });
+        router.push("/");
+      }else{
+        toast({
+          title: "Failed",
+            description: "Failed to signup",
+        })
+      }
     } catch (error) {
       console.error("Signup failed:", error);
       toast({

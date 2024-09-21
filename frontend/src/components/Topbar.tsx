@@ -5,27 +5,27 @@ import { Menu } from 'lucide-react';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import Cookies from "js-cookie";
+
 
 const Topbar = ({ toggleSidebar }) => {
-  // const dispatch = useDispatch<AppDispatch>();
-  const user = useSelector((state: RootState) => state.auth);
+  const dispatch = useDispatch<AppDispatch>();
+  const user = useSelector((state: RootState) => state.auth.user);
 
-  // useEffect(() => {
-  //   if (!user) {
-  //     dispatch(fetchCurrentUser());
-  //   }
-  // }, [user, dispatch]);
+  useEffect(() => {
+    const token = Cookies.get("token");
+    if (token && !user) {
+      dispatch(fetchCurrentUser());
+    }
+  }, [user, dispatch]);
 
-  useEffect(()=>{
-    console.log("auth state:"+JSON.stringify(user))
-  },[])
 
-  // const getInitials = (name) => {
-  //   const names = name.split(' ');
-  //   return names.length > 1
-  //     ? names[0][0] + names[1][0]
-  //     : names[0][0];
-  // };
+  const getInitials = (name) => {
+    const names = name.split(' ');
+    return names.length > 1
+      ? names[0][0] + names[1][0]
+      : names[0][0];
+  };
 
   return (
     <div className="w-full h-16 bg-white shadow-md fixed top-0 left-0 z-50 flex items-center justify-between px-6">
@@ -44,7 +44,7 @@ const Topbar = ({ toggleSidebar }) => {
         {user ? (
           <Link href={'/profile'}>
             <div className="flex items-center justify-center bg-gray-200 text-gray-700 rounded-full w-10 h-10">
-            {/* {getInitials(user.username).toUpperCase()} */}
+            {getInitials(user.username).toUpperCase()}
           </div>
           </Link>
         
