@@ -1,6 +1,7 @@
 // src/server.ts
 import express, { Application } from 'express';
 import dotenv from 'dotenv';
+import cookieParser from 'cookie-parser';
 import connectDB from './config/db';
 import cors from 'cors';
 import authRoutes from './routes/authRoutes';
@@ -13,9 +14,14 @@ dotenv.config();
 connectDB();
 
 const app = express();
+const corsOptions = {
+  origin: 'http://localhost:3000', 
+  credentials: true,
+};
 
 // Middleware
-app.use(cors());
+app.use(cors(corsOptions));
+app.use(cookieParser());
 app.use(express.json());
 
 // Routes

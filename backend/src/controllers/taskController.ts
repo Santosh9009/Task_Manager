@@ -7,8 +7,8 @@ export const getTasks = async (req: Request, res: Response) => {
 };
 
 export const createTask = async (req: Request, res: Response) => {
-  const { title, description, priority } = req.body;
-  const task: TaskType = new Task({ user: req.user?._id, title, description, priority });
+  const { title, description, priority, status } = req.body;
+  const task: TaskType = new Task({ user: req.user?._id, title, description, priority, status });
   await task.save();
   res.status(201).json(task);
 };
@@ -20,7 +20,7 @@ export const updateTask = async (req: Request, res: Response) => {
   task.title = req.body.title || task.title;
   task.description = req.body.description || task.description;
   task.priority = req.body.priority || task.priority;
-  task.completed = req.body.completed !== undefined ? req.body.completed : task.completed;
+  task.status = req.body.status|| task.status;
 
   await task.save();
   res.json(task);

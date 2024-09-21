@@ -5,8 +5,8 @@ import {protect} from '../middlewares/authMiddleware';
 
 const router: Router = Router();
 
-router.get('/', protect, getTasks);
-router.post('/', protect, createTask);
+router.get('/get', protect, getTasks);
+router.post('/create', protect, createTask);
 router.put('/:id', protect, updateTask);
 router.delete('/:id', protect, deleteTask);
 

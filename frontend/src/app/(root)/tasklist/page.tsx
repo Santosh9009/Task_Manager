@@ -1,13 +1,13 @@
 "use client"
 import DashboardLayout from '@/components/Dashboard';
-import KanbanBoard from '@/components/kanbanboard';
+import TaskList from '@/components/Tasklist';
 
-const KanbanPage = () => {
+const TaskListPage = () => {
   return (
     <DashboardLayout>
-      <KanbanBoard />
+      <TaskList />
     </DashboardLayout>
   );
 };
 
-export default KanbanPage;
+export default TaskListPage;

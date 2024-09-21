@@ -1,55 +1,61 @@
 // src/controllers/authController.ts
-import { Request, Response } from 'express';
-import User, { UserType } from '../models/User';
-import generateToken from '../utils/generateToken';
+import { Request, Response } from "express";
+import User, { UserType } from "../models/User";
+import generateToken from "../utils/generateToken";
 
-export const UserSignup = async (req: Request, res: Response) => {
+export const signup = async (req: Request, res: Response) => {
   const { username, email, password } = req.body;
 
-  try {
-    const userExists = await User.findOne({ email });
+  // Check if user already exists
+  const existingUser = await User.findOne({ email });
+  if (existingUser) {
+    return res.status(400).json({ message: "User already exists" });
+  }
 
-    if (userExists) {
-      return res.status(400).json({ message: 'User already exists' });
-    }
+  // Create a new user
+  const user = new User({ username, email, password });
+  await user.save();
 
-    const user: UserType = new User({ username, email, password });
-    await user.save();
+  // Generate token
+  const token = generateToken(user._id);
 
-    res.status(201).json({
-      _id: user._id,
+  // Set token in HTTP-only cookie
+  res.cookie("token", token, {
+    httpOnly: true,
+    secure: false,
+    sameSite: "none",
+  });
+
+  res.status(201).json({
+    token,
+    user: {
+      id: user._id,
       username: user.username,
       email: user.email,
-      token: generateToken(user._id),
-    });
-  } catch (error) {
-    res.status(500).json({ message: 'Error registering user' });
-  }
+    },
+  });
 };
 
-export const UserLogin = async (req: Request, res: Response) => {
+export const login = async (req: Request, res: Response) => {
   const { email, password } = req.body;
+  const user = await User.findOne({ email });
 
-  try {
-    const user = await User.findOne({ email });
-
-    if(!user){
-      return res.json({
-        message:`User doesn't exist`
-      })
-    }
-
-    if (user && (await user.matchPassword(password))) {
-      res.json({
-        _id: user._id,
+  if (user && (await user.matchPassword(password))) {
+    const token = generateToken(user._id);
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: false,
+      sameSite: "none",
+    });
+    res.json({
+      token,
+      user: {
+        id: user._id,
         username: user.username,
         email: user.email,
-        token: generateToken(user._id),
-      });
-    } else {
-      res.status(401).json({ message: 'Invalid email or password' });
-    }
-  } catch (error) {
-    res.status(500).json({ message: 'Error logging in' });
+      },
+    });
+  } else {
+    res.status(401).json({ message: "Invalid credentials" });
   }
 };

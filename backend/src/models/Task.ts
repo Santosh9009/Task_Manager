@@ -5,7 +5,7 @@ export interface TaskType extends Document {
   title: string;
   description: string;
   priority: 'low' | 'medium' | 'high';
-  completed: boolean;
+  status: 'To Do' | 'In Progress' | 'Completed'; 
 }
 
 const TaskSchema: Schema = new Schema(
@@ -14,7 +14,7 @@ const TaskSchema: Schema = new Schema(
     title: { type: String, required: true },
     description: { type: String, required: true },
     priority: { type: String, enum: ['low', 'medium', 'high'], default: 'low' },
-    completed: { type: Boolean, default: false },
+    status: { type: String, enum: ['To Do', 'In Progress', 'Completed'], default: 'To Do' },
   },
   { timestamps: true }
 );
