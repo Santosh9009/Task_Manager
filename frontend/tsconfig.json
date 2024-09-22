@@ -7,7 +7,7 @@
     "noImplicitAny": false,  
     "noEmit": true,
     "esModuleInterop": true,
-    "module": "esnext",
+    "module": "ES2015",
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
