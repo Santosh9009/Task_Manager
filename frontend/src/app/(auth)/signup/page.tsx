@@ -4,11 +4,11 @@ import { useAuth } from '@/hooks/useAuth';
 import { useToast } from '@/hooks/use-toast';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import Cookies from 'js-cookie';
+
 
 export default function SignupPage() {
   const { toast } = useToast()
-  const { signup, loading, error } = useAuth();
+  const { signup, loading } = useAuth();
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -16,30 +16,16 @@ export default function SignupPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    try {
-      await signup({ email, password, username });
-      const token = Cookies.get('token');
-      if (token) {
-        toast({
-          title: "success",
-          description: "Logged in successfully",
-          variant: "default",
-        });
-        router.push("/");
-      }else{
-        toast({
-          title: "Failed",
-            description: "Failed to signup",
-        })
-      }
-    } catch (error) {
-      console.error("Signup failed:", error);
-      toast({
-        title: "Failed",
-          description: "Failed to signup",
-      })
+    const { success } = await signup({ email, password, username });
+
+    if (success) {
+      toast({ title: 'Success', description: 'Signed up successfully' });
+      router.replace('/'); 
+    } else {
+      toast({ title: 'Error', description: 'Signup failed', variant: 'destructive' });
     }
   };
+  
 
   return (
     <div className="h-screen w-full bg-white flex items-center justify-center text-black">
@@ -88,7 +74,6 @@ export default function SignupPage() {
           >
             {loading ? 'Signing up...' : 'Sign Up'}
           </button>
-          {error && <p className="text-red-500 text-center mt-2">{error}</p>}
         </form>
         <div className='text-center mt-5'>Already have an accrount? <Link className='text-blue-400 underline' href={'/login'}>Login</Link></div>
       </div>

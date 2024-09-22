@@ -2,7 +2,7 @@ import { TaskType } from '@/Types/task';
 import axios from 'axios';
 
 // Backend URL
-const API_URL = 'http://localhost:8000/api/tasks';
+const API_URL = `${process.env.NEXT_PUBLIC_API_URL}/api/tasks`;
 
 // Fetch tasks
 export const getTasks = async () => {

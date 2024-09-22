@@ -1,27 +1,22 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/redux/store';
-import { loginUser, logoutUser, signupUser } from '@/redux/slices/authSlice';
-import { useState } from 'react';
+import { loginUser, logoutUser, signupUser, fetchCurrentUser } from '@/redux/slices/authSlice';
+import { useState, useEffect } from 'react';
 
 export const useAuth = () => {
   const dispatch = useDispatch<AppDispatch>();
   const authState = useSelector((state: RootState) => state.auth);
+  const { user, status, error } = authState;
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null); // For capturing errors
 
   const login = async (credentials: { email: string; password: string }) => {
     setLoading(true);
-    setError(null); 
     try {
-      const resultAction = await dispatch(loginUser(credentials));
-
-      if (loginUser.rejected.match(resultAction)) {
-        setError(resultAction.error.message || 'Login failed');
-        throw new Error(resultAction.error.message || 'Login failed');
-      }
-    } catch (error) {
-      console.error(error); 
-      setError(`Unable to login: ${error}`);
+      const result = await dispatch(loginUser(credentials)).unwrap();
+      return { success: true, user: result }; // Return success and user data
+    } catch (err) {
+      console.error("Login error:", err);
+      return { success: false, error: err }; // Return failure and error
     } finally {
       setLoading(false);
     }
@@ -29,26 +24,41 @@ export const useAuth = () => {
 
   const signup = async (userDetails: { email: string; password: string; username: string }) => {
     setLoading(true);
-    setError(null); 
     try {
-      const resultAction = await dispatch(signupUser(userDetails));
-
-      if (signupUser.rejected.match(resultAction)) {
-        setError(resultAction.error.message || 'Signup failed');
-        throw new Error(resultAction.error.message || 'Signup failed');
-      }
-    } catch (error) {
-      console.error(error);
-      setError(`Unable to signup: ${error}`);
+      const result = await dispatch(signupUser(userDetails)).unwrap();
+      return { success: true, user: result }; // Return success and user data
+    } catch (err) {
+      console.error("Signup error:", err);
+      return { success: false, error: err }; // Return failure and error
     } finally {
       setLoading(false);
     }
   };
 
-  const logout = () => {
-    dispatch(logoutUser());
-    setError(null); 
+  const logout = async () => {
+    setLoading(true);
+    try {
+      await dispatch(logoutUser()).unwrap();
+      return { success: true }; // Return success
+    } catch (err) {
+      console.error("Logout error:", err);
+      return { success: false, error: err }; // Return failure and error
+    } finally {
+      setLoading(false);
+    }
   };
 
-  return { ...authState, login, signup, logout, loading, error }; // Return error state
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        await dispatch(fetchCurrentUser()).unwrap();
+      } catch (err) {
+        console.error("Fetch user error:", err);
+      }
+    };
+
+    fetchUser();
+  }, [dispatch]);
+
+  return { user, login, signup, logout, status, error, loading };
 };

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // Backend URL
-const AUTH_URL = "http://localhost:8000/api/auth";
+const AUTH_URL = `${process.env.NEXT_PUBLIC_API_URL}/api/auth`;
 
 // Login API
 export const login = async (credentials: {
