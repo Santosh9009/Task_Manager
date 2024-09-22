@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { AppDispatch, RootState } from '@/redux/store';
 import { useDispatch, useSelector } from 'react-redux';
-import { addTask, fetchTasks, modifyTask, removeTask } from '@/redux/slices/taskSlice';
+import { addTask, fetchTasks, modifyTask, removeTask } from '../redux/slices/taskSlice';
 import { TaskType } from '@/Types/task';
 
 

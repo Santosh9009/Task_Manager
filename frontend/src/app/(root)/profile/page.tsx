@@ -6,7 +6,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/redux/store";
 import { useDispatch } from "react-redux";
-import { fetchCurrentUser } from "@/redux/slices/authSlice";
+import { fetchCurrentUser } from "../../../redux/slices/authSlice";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import Link from "next/link"; 

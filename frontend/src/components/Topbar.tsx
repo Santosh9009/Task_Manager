@@ -1,5 +1,5 @@
 "use client";
-import { fetchCurrentUser } from '@/redux/slices/authSlice';
+import { fetchCurrentUser } from '../redux/slices/authSlice';
 import { AppDispatch, RootState } from '@/redux/store';
 import { Menu } from 'lucide-react';
 import Link from 'next/link';
