@@ -1,0 +1,9 @@
+{
+  "/_not-found/page": "app/_not-found/page.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/(auth)/login/page": "app/(auth)/login/page.js",
+  "/(auth)/signup/page": "app/(auth)/signup/page.js",
+  "/(root)/page": "app/(root)/page.js",
+  "/(root)/profile/page": "app/(root)/profile/page.js",
+  "/(root)/tasklist/page": "app/(root)/tasklist/page.js"
+}
