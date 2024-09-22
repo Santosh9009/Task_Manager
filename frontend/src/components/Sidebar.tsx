@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 const Sidebar = ({ isOpen }) => {
-  const pathname = usePathname(); // Get current pathname
+  const pathname = usePathname(); 
 
   const linkClass = (path) => 
     `flex items-center p-3 rounded-lg transition-all cursor-pointer ${

@@ -44,7 +44,7 @@ const CreateTask: React.FC<CreateTaskProps> = ({ isOpen, onClose, onSubmitCreate
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="bg-white text-gray-800"> {/* Light theme */}
+      <DialogContent className="bg-white text-gray-800"> 
         <DialogHeader>
           <DialogTitle>Create New Task</DialogTitle>
         </DialogHeader>
@@ -54,13 +54,13 @@ const CreateTask: React.FC<CreateTaskProps> = ({ isOpen, onClose, onSubmitCreate
             placeholder="Task Title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="border border-gray-300 rounded-lg p-2 w-full" // Light theme styles
+            className="border border-gray-300 rounded-lg p-2 w-full" 
           />
           <Textarea
             placeholder="Task Description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            className="border border-gray-300 rounded-lg p-2 w-full" // Light theme styles
+            className="border border-gray-300 rounded-lg p-2 w-full" 
           />
 
           <Select

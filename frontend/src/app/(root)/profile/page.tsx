@@ -9,7 +9,7 @@ import { useDispatch } from "react-redux";
 import { fetchCurrentUser } from "@/redux/slices/authSlice";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
-import Link from "next/link"; // Correct import for Link
+import Link from "next/link"; 
 import { ArrowLeft } from "lucide-react";
 
 const ProfilePage = () => {
@@ -30,12 +30,12 @@ const ProfilePage = () => {
       await logout();
       router.push("/login");
     } catch (error) {
-      console.error("Logout error:", error); // Handle errors
+      console.error("Logout error:", error); 
     }
   };
 
   if (loading) {
-    return <div className="text-center">Loading...</div>; // Show loading state
+    return <div className="text-center">Loading...</div>
   }
 
   return (

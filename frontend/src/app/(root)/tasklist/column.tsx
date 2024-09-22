@@ -38,7 +38,7 @@ export const columns = ({
       >
         {row.original.priority}
       </span>
-    ), // Color-coded priorities
+    ), 
   },
   {
     accessorKey: "status",
@@ -61,8 +61,8 @@ export const columns = ({
         <button
           className="text-red-500 hover:opacity-50"
           onClick={() => {
-            setTaskToDelete(row.original); // Set the task to be deleted
-            setIsDeleteDialogOpen(true);  // Open delete dialog
+            setTaskToDelete(row.original); 
+            setIsDeleteDialogOpen(true);  
           }}
         >
           <Trash2/>

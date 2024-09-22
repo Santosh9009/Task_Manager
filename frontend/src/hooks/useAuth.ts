@@ -11,7 +11,7 @@ export const useAuth = () => {
 
   const login = async (credentials: { email: string; password: string }) => {
     setLoading(true);
-    setError(null); // Reset error on new attempt
+    setError(null); 
     try {
       const resultAction = await dispatch(loginUser(credentials));
 
@@ -20,7 +20,7 @@ export const useAuth = () => {
         throw new Error(resultAction.error.message || 'Login failed');
       }
     } catch (error) {
-      console.error(error); // Log the error for debugging
+      console.error(error); 
       setError(`Unable to login: ${error}`);
     } finally {
       setLoading(false);
@@ -29,7 +29,7 @@ export const useAuth = () => {
 
   const signup = async (userDetails: { email: string; password: string; username: string }) => {
     setLoading(true);
-    setError(null); // Reset error on new attempt
+    setError(null); 
     try {
       const resultAction = await dispatch(signupUser(userDetails));
 
@@ -38,7 +38,7 @@ export const useAuth = () => {
         throw new Error(resultAction.error.message || 'Signup failed');
       }
     } catch (error) {
-      console.error(error); // Log the error for debugging
+      console.error(error);
       setError(`Unable to signup: ${error}`);
     } finally {
       setLoading(false);
@@ -47,7 +47,7 @@ export const useAuth = () => {
 
   const logout = () => {
     dispatch(logoutUser());
-    setError(null); // Clear error on logout
+    setError(null); 
   };
 
   return { ...authState, login, signup, logout, loading, error }; // Return error state

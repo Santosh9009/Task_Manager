@@ -37,8 +37,11 @@ export const fetchCurrentUser = createAsyncThunk<User, void, { rejectValue: stri
   }
 );
 
-// Generic login/signup function
-const handleAuth = async (authFunc: Function, userDetails: any) => {
+
+const handleAuth = async (
+  authFunc: (userDetails: { email: string; password: string; username: string }) => Promise<{ token: string; user: User }>,
+  userDetails: { email: string; password: string; username: string }
+): Promise<User> => {
   const response = await authFunc(userDetails);
   if (response.token) {
     Cookies.set("token", response.token);
@@ -47,19 +50,31 @@ const handleAuth = async (authFunc: Function, userDetails: any) => {
   throw new Error("Token missing");
 };
 
-// Async thunk for logging in
+const handleLogin = async (
+  authFunc: (userDetails: { email: string; password: string }) => Promise<{ token: string; user: User }>,
+  userDetails: { email: string; password: string }
+): Promise<User> => {
+  const response = await authFunc(userDetails);
+  if (response.token) {
+    Cookies.set("token", response.token);
+    return response.user;
+  }
+  throw new Error("Token missing");
+};
+
+
+
 export const loginUser = createAsyncThunk<User, { email: string; password: string }, { rejectValue: string }>(
   "auth/loginUser",
   async (credentials, { rejectWithValue }) => {
     try {
-      return await handleAuth(login, credentials);
+      return await handleLogin(login, credentials);
     } catch (error) {
       return rejectWithValue(handleError(error));
     }
   }
 );
 
-// Async thunk for signing up
 export const signupUser = createAsyncThunk<User, { email: string; password: string; username: string }, { rejectValue: string }>(
   "auth/signupUser",
   async (userDetails, { rejectWithValue }) => {
@@ -70,6 +85,8 @@ export const signupUser = createAsyncThunk<User, { email: string; password: stri
     }
   }
 );
+
+
 
 // Async thunk for logging out
 export const logoutUser = createAsyncThunk<void, void, { rejectValue: string }>(

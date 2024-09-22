@@ -1,6 +1,6 @@
 "use client"
 import React, { useState } from 'react';
-import { useAuth } from '@/hooks/useAuth'; // Adjust the path as necessary
+import { useAuth } from '@/hooks/useAuth'; 
 import { useToast } from '@/hooks/use-toast';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';

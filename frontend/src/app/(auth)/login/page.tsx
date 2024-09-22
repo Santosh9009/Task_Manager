@@ -1,11 +1,9 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { useToast } from "@/hooks/use-toast";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { RootState } from "@/redux/store";
-import { useSelector } from "react-redux";
 import Cookies from "js-cookie";
 
 export default function LoginPage() {
@@ -14,7 +12,6 @@ export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
-  const user = useSelector((state: RootState) => state);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -43,9 +40,6 @@ export default function LoginPage() {
     }
   };
 
-  useEffect(() => {
-    console.log("auth state:", user);
-  }, []);
 
   return (
     <div className="h-screen w-full bg-white flex items-center justify-center text-black">
@@ -96,7 +90,7 @@ export default function LoginPage() {
           >
             {loading ? "Logging in..." : "Login"}
           </button>
-          {/* {error && <p className="text-red-500 text-center mt-2">{error}</p>} */}
+          
         </form>
         <div className="text-center mt-5">
           Dont have an accrount?{" "}

@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/select";
 import { TaskType } from "@/Types/task";
 
-// Type definition for the props
+
 type EditTaskSheetProps = {
   isOpen: boolean;
   onClose: () => void;
@@ -105,7 +105,7 @@ const EditTask = ({ isOpen, onClose, task, onSubmitEdit }: EditTaskSheetProps) =
             </SelectContent>
           </Select>
 
-          {/* Save Button */}
+
           <Button
             variant={"default"}
             onClick={handleSave}

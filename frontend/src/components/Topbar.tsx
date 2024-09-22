@@ -3,7 +3,7 @@ import { fetchCurrentUser } from '@/redux/slices/authSlice';
 import { AppDispatch, RootState } from '@/redux/store';
 import { Menu } from 'lucide-react';
 import Link from 'next/link';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Cookies from "js-cookie";
 

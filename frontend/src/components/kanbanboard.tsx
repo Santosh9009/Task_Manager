@@ -54,7 +54,7 @@ const KanbanBoard = () => {
 
   useEffect(() => {
     const fetchTasks = async () => {
-      await loadTasks(); // Fetch tasks on mount
+      await loadTasks(); 
     };
 
     fetchTasks();
@@ -65,7 +65,7 @@ const KanbanBoard = () => {
   const handleDragEnd = (event) => {
     const { active, over } = event;
 
-    if (over && active.id !== over.id) { // Ensure dragging to a different column
+    if (over && active.id !== over.id) { 
       const taskToUpdate = tasks.find((task) => task._id === active.id);
       if (taskToUpdate) {
         const updatedTask = {
@@ -73,7 +73,7 @@ const KanbanBoard = () => {
           status: over.id,
         };
 
-        debouncedUpdateTask(updatedTask); // Use debounced update
+        debouncedUpdateTask(updatedTask); 
         toast({
           title: "Success",
           description: "Task moved successfully!",

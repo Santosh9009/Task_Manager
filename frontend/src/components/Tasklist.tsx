@@ -15,7 +15,7 @@ import EditTask from "./EditTask";
 import DeleteAlert from "./DeleteAlert";
 import { columns } from "@/app/(root)/tasklist/column";
 import { Loader2 } from "lucide-react";
-import CreateTask from "./CreateTask"; // Import the CreateTask component
+import CreateTask from "./CreateTask"; 
 
 const TaskList = () => {
   const { tasks, loadTasks, deleteTask, updateTask, createTask, loading } = useTasks();
@@ -65,7 +65,7 @@ const TaskList = () => {
     setIsEditSheetOpen(false);
   };
 
-  // Function to open the Edit sheet and set the task to be edited
+
   const openEditSheet = (task: TaskType) => {
     setTaskToEdit(task);
     setIsEditSheetOpen(true);
@@ -113,7 +113,7 @@ const TaskList = () => {
         <Button
           variant="default"
           className="bg-blue-500 text-white font-semibold"
-          onClick={() => setIsCreateDialogOpen(true)} // Open the CreateTask dialog
+          onClick={() => setIsCreateDialogOpen(true)} 
         >
           Create Task
         </Button>
