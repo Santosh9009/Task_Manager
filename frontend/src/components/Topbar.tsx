@@ -1,6 +1,6 @@
 "use client";
-import { fetchCurrentUser } from '../redux/slices/authSlice';
-import { AppDispatch, RootState } from '@/redux/store';
+import { fetchCurrentUser } from '../lib/slices/authSlice';
+import { AppDispatch, RootState } from '@/lib/store';
 import { Menu } from 'lucide-react';
 import Link from 'next/link';
 import React, { useEffect } from 'react';
@@ -17,15 +17,17 @@ const Topbar = ({ toggleSidebar }) => {
     if (token && !user) {
       dispatch(fetchCurrentUser());
     }
+    console.log(user?.username)
   }, [user, dispatch]);
 
 
   const getInitials = (name) => {
     const names = name.split(' ');
     return names.length > 1
-      ? names[0][0] + names[1][0]
+      ? names[0][0] + (names[1][0] || '')  // Check if names[1] exists
       : names[0][0];
   };
+  
 
   return (
     <div className="w-full h-16 bg-white shadow-md fixed top-0 left-0 z-50 flex items-center justify-between px-6">
@@ -44,7 +46,7 @@ const Topbar = ({ toggleSidebar }) => {
         {user ? (
           <Link href={'/profile'}>
             <div className="flex items-center justify-center bg-gray-200 text-gray-700 rounded-full w-10 h-10">
-            {getInitials(user.username).toUpperCase()}
+            {getInitials(user.username).toUpperCase() || 'X'}
           </div>
           </Link>
         
