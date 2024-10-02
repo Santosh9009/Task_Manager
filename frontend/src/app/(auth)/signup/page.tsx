@@ -20,7 +20,7 @@ export default function SignupPage() {
 
     if (success) {
       toast({ title: 'Success', description: 'Signed up successfully' });
-      router.replace('/'); 
+      router.replace('/home'); 
     } else {
       toast({ title: 'Error', description: 'Signup failed', variant: 'destructive' });
     }

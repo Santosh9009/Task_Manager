@@ -28,7 +28,7 @@ const ProfilePage = () => {
   const handleLogout = async () => {
     try {
       await logout();
-      router.push("/login");
+      router.push("/");
     } catch (error) {
       console.error("Logout error:", error); 
     }
@@ -40,7 +40,7 @@ const ProfilePage = () => {
 
   return (
     <div className="bg-gray-50 p-5">
-      <Link href="/" className="flex justify-center items-center mb-4 text-black hover:rounded-full hover:bg-gray-200 duration-200 w-10 h-10">
+      <Link href="/home" className="flex justify-center items-center mb-4 text-black hover:rounded-full hover:bg-gray-200 duration-200 w-10 h-10">
         <ArrowLeft className="" />
       </Link>
       <div className="flex items-center justify-center min-h-screen">

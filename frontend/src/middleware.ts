@@ -12,5 +12,5 @@ export function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/profile', '/', '/tasklist'], 
+  matcher: ['/profile', '/home', '/tasklist'], 
 };

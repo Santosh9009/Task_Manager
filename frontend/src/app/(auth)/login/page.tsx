@@ -19,7 +19,7 @@ export default function LoginPage() {
 
     if (success) {
       toast({ title: 'Success', description: 'Logged in successfully' });
-      router.replace('/');
+      router.replace('/home');
     } else {
       toast({ title: 'Error', description: 'Login failed', variant: 'destructive' });
     }

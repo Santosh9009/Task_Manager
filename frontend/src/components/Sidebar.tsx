@@ -28,7 +28,7 @@ const Sidebar = ({ isOpen }) => {
             <p>Task List</p>
           </div>
         </Link>
-        <Link href="/">
+        <Link href="/home">
           <div className={linkClass('/')}>
             <Home className="mr-2" />
             <p>Home</p>
