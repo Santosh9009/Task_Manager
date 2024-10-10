@@ -15,9 +15,8 @@ connectDB();
 
 const app = express();
 const corsOptions = {
-  origin: process.env.URL, 
+  origin: '*', 
   credentials: true,
-  optionsSuccessStatus: 200, 
 };
 
 // Middleware
