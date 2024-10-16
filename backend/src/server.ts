@@ -15,8 +15,9 @@ connectDB();
 
 const app = express();
 const corsOptions = {
-  origin: '*', 
+  origin: 'https://task-manager-gray-seven.vercel.app', 
   credentials: true,
+  optionsSuccessStatus: 200,
 };
 
 // Middleware
